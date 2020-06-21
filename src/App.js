@@ -23,11 +23,11 @@ export default function App() {
 
   async function handleLikeRepository(id) {
     api.post(`repositories/${id}/like`).then(response => {
-      const index = repositories.indexOf(repository => repository.id === id)
+      const index = repositories.findIndex(repository => repository.id === id)
       const _repositories = [ ...repositories ]
 
       _repositories[index] = response.data
-      setRepositories(_repositories)
+      setRepositories([..._repositories])
     })
   }
 
@@ -43,8 +43,8 @@ export default function App() {
 
             {repository.techs.length > 0 && (
               <View style={styles.techsContainer}>
-              {repository.techs.map(tech => (
-                <Text key={`techs-${repository.id}`} style={styles.tech}>{tech}</Text>
+              {repository.techs.map((tech, i) => (
+                <Text key={`techs-${i}`} style={styles.tech}>{tech}</Text>
               ))}
             </View>
             )}
